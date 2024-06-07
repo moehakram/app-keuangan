@@ -7,11 +7,11 @@ use MA\PHPMVC\Utility\Config;
 use MA\PHPMVC\Interfaces\Middleware;
 use MA\PHPMVC\Interfaces\Request;
 
-class OnlyGuestMiddleware implements Middleware
+class OnlyGuest implements Middleware
 {
     public function execute(Request $request, callable $next)
     {
-        $user = $request->getSession(Config::get('session.name'), Config::get('session.key'));
+        $user = $request->user();
         if ($user != null) {
             response()->redirect('/');
         }

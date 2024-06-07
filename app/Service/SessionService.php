@@ -32,7 +32,7 @@ class SessionService
         ];
 
         
-        $this->sessionRepository->save($session);
+    // $this->sessionRepository->save($session);
         
         $value = TokenHandler::generateToken($payload, Config::get('session.key'));
         
@@ -54,6 +54,12 @@ class SessionService
         $payload = request()->getSession(Config::get('session.name'), Config::get('session.key'));
 
         if ($payload === null) {
+            return null;
+        }
+
+
+        if($payload->exp < time()){
+            $this->destroy();
             return null;
         }
 
