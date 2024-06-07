@@ -22,15 +22,15 @@ Router::get('/pemasukan', [DailyData::class, '']);
 Router::get('/pengeluaran', [DailyData::class, '']);
 
 // input data
-Router::get('tambahPemasukan', [InputData::class, '']);
-Router::get('tambahPengeluaran', [InputData::class, '']);
+Router::get('/tambahPemasukan', [InputData::class, '']);
+Router::get('/tambahPengeluaran', [InputData::class, '']);
 
 // financial report
-Router::get('laporan', [FinancialReport::class, '']);
+Router::get('/laporan', [FinancialReport::class, '']);
 
 
 // kelola user
-Router::get('administrator', [UserController::class, '']);
+Router::get('/administrator', [UserController::class, '']);
 
 // Profile
 // Router::get("/user/profile", [ProfileController::class, 'edit'], OnlyMember::class, MustLoginAdmin::class);
