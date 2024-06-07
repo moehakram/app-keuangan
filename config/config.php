@@ -13,7 +13,7 @@ return [
         'driver' => 'mysql',
         'host' => '127.0.0.1',
         'port' => '3306',
-        'name' => 'db_keuangan',
+        'name' => 'mydompet',
         'username' => 'root',
         'password' => '',
         'prefix' => ''

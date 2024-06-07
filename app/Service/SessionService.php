@@ -22,16 +22,21 @@ class SessionService
         $session->id = strRandom(10);
         $session->username = $user->username;
 
+        $expire =  Config::get('session.exp');
+
         $payload = [
             'id' => $session->id,
             'username' => $user->username,
-            'level' => $user->level
+            'level' => $user->level,
+            'exp' =>  $expire
         ];
 
+        
         $this->sessionRepository->save($session);
-
+        
         $value = TokenHandler::generateToken($payload, Config::get('session.key'));
-        setcookie(Config::get('session.name'), $value, Config::get('session.exp'), "/", "", false, true);
+        
+        setcookie(Config::get('session.name'), $value, $expire, "/", "", false, true);
 
         return $session;
     }
@@ -39,7 +44,7 @@ class SessionService
     public function destroy()
     {
         $session = request()->getSession(Config::get('session.name'), Config::get('session.key'));
-        $this->sessionRepository->deleteById($session->id);
+        // $this->sessionRepository->deleteById($session->id);
         // $this->sessionRepository->deleteAll();
         setcookie(Config::get('session.name'), '', 1, "/");
     }
@@ -52,12 +57,12 @@ class SessionService
             return null;
         }
 
-        $session = $this->sessionRepository->findById($payload->id);
+        // $session = $this->sessionRepository->findById($payload->id);
 
-        if ($session === null) {
-            $this->destroy();
-            return null;
-        }
+        // if ($session === null) {
+        //     $this->destroy();
+        //     return null;
+        // }
 
         $user = new User();
         $user->username = $payload->username;

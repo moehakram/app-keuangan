@@ -49,7 +49,7 @@
             <ul>
                 <li>
                     <img src="assets/img/user.png" class="img-fluid profile float-left" width="60px">
-                    <h5 class="admin"><?= substr($ambilNama, 0, 7) ?></h5>
+                    <h5 class="admin"><?= substr($user['name'], 0, 7) ?></h5>
                     <div class="online online2">
                         <p class="float-right ontext">Online</p>
                         <div class="on float-right"></div>
@@ -146,10 +146,6 @@
                     </li>
                 </a>
                 
-
-                <?php  
-                if($_SESSION['level'] == 'admin'){
-                ?>
                 <a href="administrator" style="text-decoration: none;">
                     <li>
                         <div>
@@ -158,8 +154,6 @@
                         </div>
                     </li>
                 </a>
-                <?php } ?>
-
 
                 <!-- change icon -->
                 <script>
@@ -222,17 +216,8 @@
                                             <div class="col-7 d-flex align-items-center tulisan">
                                                 <div class="numbers">
                                                     <p class="card-category ket head">Pengeluaran</p>
-                                                    <?php foreach ($totalPengeluaran as $row) : ?>
-                                                    <?php
-                                                        $hargaPengeluaran[] = $row["jumlah"];
-                                                        $hargaConvert = str_replace('.', '', $hargaPengeluaran);
-                                                        $totalPeng = array_sum($hargaConvert);
-                                                        $hasilHargaPengeluaran = number_format($totalPeng, 0, ',', '.');   
-                                                    ?>                                     
-                                                    <?php endforeach; ?>
-
-                                                    <?php global $hasilHargaPengeluaran;
-                                                    if ( $hasilHargaPengeluaran != "" ) : ?>
+                            
+                                                  <?php  if ( $hasilHargaPengeluaran != "" ) : ?>
                                                     <h4 class="card-title ket total">Rp. <?= $hasilHargaPengeluaran; ?></h4>
                                                     <?php else : ?>
                                                     <h4 class="card-title ket total">Rp. 0</h4>
@@ -272,17 +257,7 @@
                                             <div class="col-7 d-flex align-items-center tulisan">
                                                 <div class="numbers">
                                                     <p class="card-category ket head">Pemasukkan</p>
-                                                    <?php foreach ($totalPemasukan as $row) : ?>
-                                                        <?php
-                                                            $hargaPemasukkan[] = $row["jumlah"];
-                                                            $hargaConvert = str_replace('.', '', $hargaPemasukkan);
-                                                            $totalPem = array_sum($hargaConvert);
-                                                            $hasilHarga = number_format($totalPem, 0, ',', '.');    
-                                                        ?>     
-                                                    <?php endforeach ?>
-
-                                                    <?php global $hasilHarga;
-                                                    if ( $hasilHarga != "" ) : ?>
+                                                    <?php if ( $hasilHarga != "" ) : ?>
                                                     <h4 class="card-title ket total">Rp. <?= $hasilHarga ?> </h4>
                                                     <?php else : ?>
                                                     <h4 class="card-title ket total">Rp. 0 </h4>
@@ -348,7 +323,7 @@
         </div>
     </div>
 
-    <input type="hidden" id="username" value="<?= $ambilNama ?>">
+    <input type="hidden" id="username" value="<?= $user['name'] ?>">
     <input type="hidden" id="saldoRekening" value="<?= $saldoRek ?>">
 
     <!-- Modal Kelola rekening -->
@@ -366,7 +341,7 @@
                 <!-- isi form -->
                 <div class="modal-body">
                     <p>No rekening anda : </p>
-                    <h5 style="margin-top: -10px; margin-bottom: 13px;"><b><?= $ambilData['no_rek'] ?></b></h5>
+                    <h5 style="margin-top: -10px; margin-bottom: 13px;"><b><?= $no_rek ?></b></h5>
                     <p style="margin-bottom: 5px;">Tentukan aksi : </p>
                     <button class="btn btn-info" id="openBtn" data-dismiss="modal">Isi saldo rekening</button>
                     <button class="btn btn-success" id="openBtn4" data-dismiss="modal">Transfer ke akun lain</button>

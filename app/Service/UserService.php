@@ -53,18 +53,18 @@ class UserService
     public function login(UserLoginRequest $request): User
     {
        if(!$request->validate()){
-            throw new ValidationException("Id and Password can not blank");
+            throw new ValidationException("username dan password tidak boleh kosong !");
        }
 
-        $user = $this->userRepository->findById($request->username);
+        $user = $this->userRepository->findByUsernameOrEmail($request->username, $request->username);
         if ($user == null) {
-            throw new ValidationException("Id or password Anda salah !");
+            throw new ValidationException("username atau password Anda salah !");
         }
 
         if (password_verify($request->password, $user->password)) {
             return $user;
         } else {
-            throw new ValidationException("Id or password Anda Salah !");
+            throw new ValidationException("username atau password Anda Salah !");
         }
     }
 

@@ -4,10 +4,10 @@ namespace App\Domain;
 
 class Pemasukan
 {
-    public $id;
-    public $tanggal;
-    public $keterangan;
-    public $sumber;
-    public $jumlah;
-    public $username;
+    public $id; // int
+    public $tanggal; // date
+    public $keterangan; // varchar(63)
+    public $sumber; // varchar(31)
+    public $jumlah; //  varchar(255)
+    public $username; // varchar(51)
 }

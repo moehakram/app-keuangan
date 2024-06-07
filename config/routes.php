@@ -5,14 +5,13 @@ use App\Controllers\AuthController;
 use App\Controllers\ProfileController;
 use App\Middleware\{CSRFMiddleware, OnlyMemberMiddleware, OnlyGuestMiddleware, MustLoginAdmin};
 
-// Router::get('/', 'HomeController@index');
-Router::get('/', fn() => view('/welcome'));
-// Router::get('/', fn() => view('home/index'));
+// Router::get('/', fn() => view('/welcome'));
+Router::get('/', 'HomeController@index');
 
-Router::post("/register", [AuthController::class, 'register']);
 Router::get("/login", [AuthController::class, 'showLogin']);
+Router::post("/register", [AuthController::class, 'register']);
 Router::post("/login", [AuthController::class, 'login']);
-Router::get("/user/logout", [AuthController::class, 'logout'], OnlyMemberMiddleware::class);
+Router::get("/logout", [AuthController::class, 'logout']);
 
 Router::get("/user/profile", [ProfileController::class, 'edit'], OnlyMemberMiddleware::class, MustLoginAdmin::class);
 Router::post("/user/profile", [ProfileController::class, 'update'], OnlyMemberMiddleware::class, CSRFMiddleware::class);

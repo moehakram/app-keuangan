@@ -6,8 +6,8 @@ use MA\PHPMVC\MVC\Model;
 
 class UserLoginRequest extends Model
 {
-    public ?string $username = null;
-    public ?string $password = null;
+    public string $username = '';
+    public string $password = '';
 
     public function rules(): array
     {

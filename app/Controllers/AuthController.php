@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     use UserServiceTrait;
 
-    protected $layout = 'app';
+    protected $layout = 'auth';
 
     public function showLogin() // Menampilkan formulir login
     {
@@ -28,7 +28,6 @@ class AuthController extends Controller
         $req = new UserLoginRequest();
         $req->username = $request->post('username');
         $req->password = $request->post('password');
-
         try {
             $user = $this->userService->login($req);
             $this->sessionService->create($user);
@@ -42,19 +41,19 @@ class AuthController extends Controller
         }
     }
 
-    public function showRegistration() // Menampilkan formulir registrasi
-    {
-        return $this->view('auth/register', [
-            'title' => 'Register New User',
-            'csrf_token' => set_CSRF('/user/register')
-        ]);
-    }
+    // public function showRegistration() // Menampilkan formulir registrasi
+    // {
+    //     return $this->view('auth/register', [
+    //         'title' => 'Register New User',
+    //         'csrf_token' => set_CSRF('/user/register')
+    //     ]);
+    // }
 
     public function register(Request $request)  // Proses registrasi pengguna
     {
         $req = new UserRegisterRequest();
-        $req->email = $request->post('email');
         $req->username = $request->post('username');
+        $req->email = $request->post('email');
         $req->password = $request->post('password');
         $req->confirmPassword = $request->post('confirmPassword');
 

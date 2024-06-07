@@ -69,10 +69,12 @@ class Migration01 implements Migration
     public function migrate(\PDO $db): void
     {
         $db->exec("CREATE TABLE users (
-            id VARCHAR(255) PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
+            username VARCHAR(255) PRIMARY KEY,
+            email VARCHAR(255) NOT NULL,
             password VARCHAR(255) NOT NULL,
-            role INT NOT NULL
+            status VARCHAR(31) NOT NULL DEFAULT 'aktif',
+            level VARCHAR(31) NOT NULL DEFAULT 'user',
+            no_rek CHAR(31) NOT NULL DEFAULT 'user',
         ) ENGINE=InnoDB");
     }
 }

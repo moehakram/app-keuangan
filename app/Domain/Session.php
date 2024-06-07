@@ -4,6 +4,6 @@ namespace App\Domain;
 
 class Session
 {
-    public string $id;
-    public string $username;
+    public string $id; // varchar(31)
+    public string $username; // varchar(31)
 }

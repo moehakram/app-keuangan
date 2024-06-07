@@ -24,8 +24,27 @@ class RekeningKeluarRepository
 
     }
 
-    public function findById()
+    public function findById(string $username)
     {
+        $stmt = $this->connection->prepare("SELECT * FROM rekening_masuk WHERE username = :username");
+        $stmt->execute([
+            ':username' => $username
+        ]);
     
+        try {
+            if ($row = $stmt->fetch()) {
+                $rekeningKeluar = new RekeningKeluar();
+                $rekeningKeluar->kode = $row['kode'];
+                $rekeningKeluar->jumlah = $row['jumlah'];
+                $rekeningKeluar->aksi = $row['aksi'];
+                $rekeningKeluar->tanggal = $row['tanggal'];
+                return $rekeningKeluar;
+            } else {
+                return null;
+            }
+        } finally {
+            $stmt->closeCursor();
+        }
+        
     }
 }

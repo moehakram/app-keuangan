@@ -1,24 +1,7 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: localhost:3306
--- Generation Time: Jun 04, 2024 at 03:11 AM
--- Server version: 8.0.30
--- PHP Version: 8.1.10
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_keuangan`
+-- Database: `mydompet`
 --
 
 -- --------------------------------------------------------
@@ -29,9 +12,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `kategori` (
   `id` int NOT NULL,
-  `nama_kategori` varchar(30) NOT NULL,
-  `type` varchar(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nama_kategori` varchar(31) NOT NULL,
+  `type` varchar(15) NOT NULL
+) ENGINE=InnoDB;
 
 --
 -- Dumping data for table `kategori`
@@ -61,11 +44,11 @@ INSERT INTO `kategori` (`id`, `nama_kategori`, `type`) VALUES
 CREATE TABLE `pemasukkan` (
   `id` int NOT NULL,
   `tanggal` date NOT NULL,
-  `keterangan` varchar(30) NOT NULL,
-  `sumber` varchar(30) NOT NULL,
-  `jumlah` varchar(250) NOT NULL,
-  `username` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `keterangan` varchar(63) NOT NULL,
+  `sumber` varchar(31) NOT NULL,
+  `jumlah` varchar(255) NOT NULL,
+  `username` varchar(31) NOT NULL
+) ENGINE=InnoDB;
 
 --
 -- Dumping data for table `pemasukkan`
@@ -108,11 +91,11 @@ INSERT INTO `pemasukkan` (`id`, `tanggal`, `keterangan`, `sumber`, `jumlah`, `us
 CREATE TABLE `pengeluaran` (
   `id` int NOT NULL,
   `tanggal` date NOT NULL,
-  `keterangan` varchar(50) NOT NULL,
-  `keperluan` varchar(30) NOT NULL,
+  `keterangan` varchar(63) NOT NULL,
+  `keperluan` varchar(63) NOT NULL,
   `jumlah` varchar(255) NOT NULL,
-  `username` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `username` varchar(31) NOT NULL
+) ENGINE=InnoDB;
 
 --
 -- Dumping data for table `pengeluaran`
@@ -142,12 +125,12 @@ INSERT INTO `pengeluaran` (`id`, `tanggal`, `keterangan`, `keperluan`, `jumlah`,
 
 CREATE TABLE `rekening_keluar` (
   `id` int NOT NULL,
-  `kode` varchar(10) NOT NULL,
+  `kode` varchar(15) NOT NULL,
   `jumlah` varchar(255) NOT NULL,
-  `aksi` varchar(10) NOT NULL DEFAULT 'keluar',
+  `aksi` varchar(15) NOT NULL DEFAULT 'keluar',
   `tanggal` date NOT NULL,
-  `username` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `username` varchar(31) NOT NULL
+) ENGINE=InnoDB;
 
 --
 -- Dumping data for table `rekening_keluar`
@@ -187,12 +170,12 @@ DELIMITER ;
 
 CREATE TABLE `rekening_masuk` (
   `id` int NOT NULL,
-  `kode` varchar(10) NOT NULL,
+  `kode` varchar(15) NOT NULL,
   `jumlah` varchar(255) NOT NULL,
-  `aksi` varchar(20) NOT NULL DEFAULT 'masuk',
+  `aksi` varchar(15) NOT NULL DEFAULT 'masuk',
   `tanggal` date NOT NULL,
-  `username` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `username` varchar(31) NOT NULL
+) ENGINE=InnoDB;
 
 --
 -- Dumping data for table `rekening_masuk`
@@ -238,37 +221,34 @@ DELIMITER ;
 --
 
 CREATE TABLE `users` (
-  `id_user` int NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `username` varchar(50) NOT NULL,
+  `username` varchar(31) NOT NULL,
+  `email` varchar(63) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `status` varchar(20) NOT NULL DEFAULT 'aktif',
-  `level` varchar(10) NOT NULL DEFAULT 'user',
-  `no_rek` char(12) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `status` varchar(15) NOT NULL DEFAULT 'aktif',
+  `level` varchar(7) NOT NULL DEFAULT 'user',
+  `no_rek` char(15) NOT NULL
+) ENGINE=InnoDB;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_user`, `email`, `username`, `password`, `status`, `level`, `no_rek`) VALUES
-(2, 'admin@gmail.com', 'admin', '$2y$10$P4k6qW8ppAqWfectI0tT/OOirNUFiHDA2j7.miX5Hv6XQ34/0AlK.', 'aktif', 'admin', '000123456789'),
-(17, 'andifirmansyah@gmail.com', 'andi', '$2y$10$mSLQZVX.jbEhVWZ3/ZSMsuLwm4yYBKP7w1SX5zWzr1v1/wM3T1VFq', 'aktif', 'user', '012345678900'),
-(18, 'letspremi478@gmail.com', 'user2', '$2y$10$N3eau0t3tIt7hCVGVsz/e.70/5keuSWiT4yxQYv6M8D/3lwYfeExK', 'aktif', 'user', 'o0jnIHSKZu');
+INSERT INTO `users` (`email`, `username`, `password`, `status`, `level`, `no_rek`) VALUES
+('admin@gmail.com', 'admin', '$2y$10$P4k6qW8ppAqWfectI0tT/OOirNUFiHDA2j7.miX5Hv6XQ34/0AlK.', 'aktif', 'admin', '000123456789'),
+('andifirmansyah@gmail.com', 'andi', '$2y$10$mSLQZVX.jbEhVWZ3/ZSMsuLwm4yYBKP7w1SX5zWzr1v1/wM3T1VFq', 'aktif', 'user', '012345678900'),
+('letspremi478@gmail.com', 'user2', '$2y$10$N3eau0t3tIt7hCVGVsz/e.70/5keuSWiT4yxQYv6M8D/3lwYfeExK', 'aktif', 'user', 'o0jnIHSKZu');
 
 --
 -- Indexes for dumped tables
 --
-
 --
 -- Indexes for table `kategori`
 --
 ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id`);
 
---
 -- Indexes for table `pemasukkan`
---
+
 ALTER TABLE `pemasukkan`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_username_masuk` (`username`);
@@ -298,8 +278,7 @@ ALTER TABLE `rekening_masuk`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id_user`),
-  ADD KEY `username` (`username`),
+  ADD PRIMARY KEY (`username`),
   ADD KEY `email` (`email`);
 
 --
@@ -310,37 +289,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pemasukkan`
 --
 ALTER TABLE `pemasukkan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pengeluaran`
 --
 ALTER TABLE `pengeluaran`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rekening_keluar`
 --
 ALTER TABLE `rekening_keluar`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rekening_masuk`
 --
 ALTER TABLE `rekening_masuk`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -370,7 +343,3 @@ ALTER TABLE `rekening_keluar`
 ALTER TABLE `rekening_masuk`
   ADD CONSTRAINT `fk_username_rekening_masuk` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

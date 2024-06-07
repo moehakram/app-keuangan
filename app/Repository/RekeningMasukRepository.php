@@ -24,8 +24,26 @@ class RekeningMasukRepository
 
     }
 
-    public function findById()
+    public function findById(string $username)
     {
-    
+        $stmt = $this->connection->prepare("SELECT * FROM rekening_masuk WHERE username = :username");
+        $stmt->execute([
+            ':username' => $username
+        ]);
+
+        try {
+            if ($row = $stmt->fetch()) {
+                $rekeningMasuk = new RekeningMasuk();
+                $rekeningMasuk->kode = $row['kode'];
+                $rekeningMasuk->jumlah = $row['jumlah'];
+                $rekeningMasuk->aksi = $row['aksi'];
+                $rekeningMasuk->tanggal = $row['tanggal'];
+                return $rekeningMasuk;
+            } else {
+                return null;
+            }
+        } finally {
+            $stmt->closeCursor();
+        }
     }
 }

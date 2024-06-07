@@ -28,7 +28,7 @@ class UserRepository
         ]);
 
         // Optionally return the user with the inserted ID
-        $user->id_user = $this->connection->lastInsertId();
+        // $user->id_user = $this->connection->lastInsertId();
         
         return $user;
     }
@@ -54,6 +54,29 @@ class UserRepository
     {
         $statement = $this->connection->prepare("SELECT username, email, password, level FROM users WHERE username = ?");
         $statement->execute([$id]);
+
+        try {
+            if ($row = $statement->fetch()) {
+                $user = new User();
+                $user->username = $row['username'];
+                $user->email = $row['email'];
+                $user->password = $row['password'];
+                $user->level = $row['level'];
+                return $user;
+            } else {
+                return null;
+            }
+        } finally {
+            $statement->closeCursor();
+        }
+    }
+    public function findByUsernameOrEmail(string $username, string $email): ?User
+    {
+        $statement = $this->connection->prepare("SELECT username, email, password, level FROM users WHERE username = :username OR email = :email");
+        $statement->execute([
+            ':username' => $username,
+            ':email' => $email
+        ]);
 
         try {
             if ($row = $statement->fetch()) {
