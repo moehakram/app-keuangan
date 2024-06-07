@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 
-class DailyData{
-    
+class DailyData extends BaseController
+{
+    //
 }

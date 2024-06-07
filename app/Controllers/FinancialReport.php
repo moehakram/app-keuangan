@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 
-class FinancialReport{
+class FinancialReport extends BaseController
+{
     
 }

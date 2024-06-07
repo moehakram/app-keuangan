@@ -6,11 +6,12 @@ use MA\PHPMVC\MVC\Controller;
 use MA\PHPMVC\Exception\ValidationException;
 use App\Models\User\UserProfileUpdateRequest;
 use App\Models\User\UserPasswordUpdateRequest;
+use App\Service\ServiceTrait;
 use MA\PHPMVC\Interfaces\Request;
 
 class ProfileController extends Controller
 {
-    use UserServiceTrait;
+    use ServiceTrait;
 
     protected $layout = 'app';
 
