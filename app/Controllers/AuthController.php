@@ -9,16 +9,9 @@ use App\Models\User\UserRegisterRequest;
 use App\Service\ServiceTrait;
 use MA\PHPMVC\Exception\ValidationException;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
-    use ServiceTrait;
-
     protected $layout = 'auth';
-
-    function __construct()
-    {
-        $this->authService();
-    }
 
     public function showLogin() // Menampilkan formulir login
     {

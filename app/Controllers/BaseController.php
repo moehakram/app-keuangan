@@ -7,12 +7,12 @@ use MA\PHPMVC\MVC\Controller;
 
 class BaseController extends Controller {
 
-   use ServiceTrait;
+    use ServiceTrait;
 
-   protected $layout = 'app';
+    protected $layout = 'app';
 
     public function __construct()
     {
-       $this->authService();
+        $this->authService();
     }
 }
