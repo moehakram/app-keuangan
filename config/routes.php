@@ -14,7 +14,7 @@ Router::get('/test', fn() => view('layouts/app', [
     'username' => 'me',
     'level' => 'admin'
 ]));
-Router::get('/', 'HomeController@welcome');
+Router::get('/', 'HomeController@index');
 
 // Auth
 Router::get("/login", [AuthController::class, 'showLogin'], OnlyGuest::class);

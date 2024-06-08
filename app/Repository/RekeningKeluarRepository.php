@@ -26,7 +26,7 @@ class RekeningKeluarRepository
 
     public function findById(string $username)
     {
-        $stmt = $this->connection->prepare("SELECT * FROM rekening_masuk WHERE username = :username");
+        $stmt = $this->connection->prepare("SELECT * FROM rekening_keluar WHERE username = :username");
         $stmt->execute([
             ':username' => $username
         ]);
