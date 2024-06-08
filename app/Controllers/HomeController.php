@@ -8,22 +8,22 @@ use MA\PHPMVC\MVC\Controller;
 
 class HomeController extends Controller
 {
-    protected $layout = 'app';
+    // protected $layout = 'app';
 
-    public function index(Request $request)
+    public function welcome(Request $request)
     {
         response()->setNoCache();
         if ($request->user() == null) {
             return view('welcome');
         } else {
-            return $this->home($request->user());
+            return $this->index($request->user());
         }
     }
 
-    private function home($user)
+    private function index($user)
     {
         $rekService = (new RekeningService())->tableRekening($user->username);
-        return $this->view('home/index', [
+        return $this->view('dashboard/index', [
             "title" => "Dashboard",
             "user" => [
                 "name" => $user->username
@@ -37,7 +37,6 @@ class HomeController extends Controller
             'today' => 'hari jumat',
             'rekeningMasuk' => $rekService->rek_Masuk,
             'rekeningKeluar' => $rekService->rek_Keluar
-
         ]);
     }
 }

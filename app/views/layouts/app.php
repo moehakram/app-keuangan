@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="assets/img/icon.svg">
-    <title><?= $title ?></title>
+    <title><?= $title ?? 'my-app' ?></title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="assets/css/styler.css?v=1.0">
@@ -36,7 +36,7 @@
             <ul>
                 <li>
                     <img src="assets/img/user.png" class="img-fluid profile float-left" width="60px">
-                    <h5 class="admin"><?= substr($username, 0, 7) ?></h5>
+                    <h5 class="admin"><?= substr($user['name'], 0, 7) ?></h5>
                     <div class="online online2">
                         <p class="float-right ontext">Online</p>
                         <div class="on float-right"></div>
@@ -133,7 +133,7 @@
                     </li>
                 </a>
 
-                <?php if ($level === 'admin') : ?>
+                <?php if ($level ?? '' === 'admin') : ?>
                     <a href="administrator" style="text-decoration: none;">
                         <li>
                             <div>
