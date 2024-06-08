@@ -9,6 +9,11 @@ use App\Controllers\ProfileController;
 use App\Controllers\UserController;
 use App\Middleware\{CSRFMiddleware, OnlyMember, MustLoginAdmin, OnlyGuest};
 
+Router::get('/test', fn() => view('layouts/app', [
+    'title' => 'CashUp - Expenditure',
+    'username' => 'me',
+    'level' => 'admin'
+]));
 Router::get('/', 'HomeController@index');
 
 // Auth
