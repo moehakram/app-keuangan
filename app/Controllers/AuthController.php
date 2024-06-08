@@ -2,11 +2,9 @@
 
 namespace App\Controllers;
 
-use MA\PHPMVC\MVC\Controller;
 use MA\PHPMVC\Interfaces\Request;
 use App\Models\User\UserLoginRequest;
 use App\Models\User\UserRegisterRequest;
-use App\Service\ServiceTrait;
 use MA\PHPMVC\Exception\ValidationException;
 
 class AuthController extends BaseController
