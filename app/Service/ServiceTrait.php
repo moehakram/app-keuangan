@@ -13,7 +13,7 @@ trait ServiceTrait {
     protected UserService $userService;
     protected SessionService $sessionService;
 
-    public function authService()
+    protected function authService()
     {
         $connection = Database::getConnection();
         $userRepository = new UserRepository($connection);

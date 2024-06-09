@@ -21,59 +21,75 @@ class SessionService
         $session = new Session();
         $session->id = strRandom(10);
         $session->username = $user->username;
-
-        $expire =  Config::get('session.exp');
-
-        $payload = [
-            'id' => $session->id,
-            'username' => $user->username,
-            'level' => $user->level,
-            'exp' =>  $expire
-        ];
-
         
-    // $this->sessionRepository->save($session);
-        
-        $value = TokenHandler::generateToken($payload, Config::get('session.key'));
-        
-        setcookie(Config::get('session.name'), $value, $expire, "/", "", false, true);
+        $this->sessionRepository->save($session);
+        $this->setSessionCookie($user, $session->id);
 
         return $session;
     }
 
     public function destroy()
     {
-        $session = request()->getSession(Config::get('session.name'), Config::get('session.key'));
-        // $this->sessionRepository->deleteById($session->id);
-        // $this->sessionRepository->deleteAll();
-        setcookie(Config::get('session.name'), '', 1, "/");
+        $session = $this->getSessionPayload();
+        if($session){
+            $this->sessionRepository->deleteById($session->id);
+            // $this->sessionRepository->deleteAll();
+            $this->clearSessionCookie();
+        }
     }
 
     public function current(): ?User
     {
-        $payload = request()->getSession(Config::get('session.name'), Config::get('session.key'));
+        $payload = $this->getSessionPayload();
 
-        if ($payload === null) {
+        if ($this->isSessionExpired($payload)) {
             return null;
         }
 
+        $session = $this->sessionRepository->findById($payload->id);
 
-        if($payload->exp < time()){
+        if ($session === null) {
             $this->destroy();
             return null;
         }
 
-        // $session = $this->sessionRepository->findById($payload->id);
-
-        // if ($session === null) {
-        //     $this->destroy();
-        //     return null;
-        // }
-
         $user = new User();
-        $user->username = $payload->username;
+        $user->username = $session->username;
         $user->level = $payload->level;
 
         return $user;
     }
+
+    private function isSessionExpired($payload): bool
+    {
+        return $payload === null || $payload->exp < time();
+    }
+
+    private function getSessionPayload() : ?\stdClass
+    {
+        $JWT = request()->cookie(Config::get('session.name')) ?? '';
+        if (empty($JWT)) return null;
+        return TokenHandler::verifyToken($JWT, Config::get('session.key'));
+    }
+
+    private function setSessionCookie(User $user, string $sessionId): void
+    {
+        $expires = Config::get('session.exp');
+
+        $payload = [
+            'id' => $sessionId,
+            'username' => $user->username,
+            'level' => $user->level,
+            'exp' => $expires
+        ];
+
+        $value = TokenHandler::generateToken($payload, Config::get('session.key'));
+        setcookie(Config::get('session.name'), $value, $expires, "/", "", false, true);
+    }
+
+    private function clearSessionCookie(): void
+    {
+        setcookie(Config::get('session.name'), '', 1, "/");
+    }
+
 }
