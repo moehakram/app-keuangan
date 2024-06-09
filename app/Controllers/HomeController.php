@@ -8,17 +8,14 @@ use MA\PHPMVC\MVC\Controller;
 
 class HomeController extends Controller
 {
-    // protected $layout = 'app';
-
     public function index(Request $request)
     {
         response()->setNoCache();
         if ($request->user() == null) {
             return view('welcome');
         } else {
-            $this->layout = 'app';
             $rekService = new RekeningService();
-            return $this->view('dashboard/index', $rekService->tableRekening($request->user()));
+            return view('dashboard/index', $rekService->tableRekening($request->user()), 'app');
         }
     }
 }

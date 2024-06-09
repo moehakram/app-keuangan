@@ -71,7 +71,7 @@
                 </script>
 
                 <!-- dashboard -->
-                <a href="dashboard" style="text-decoration: none;">
+                <a href="/" style="text-decoration: none;">
                     <li style="border-left: 5px solid #A52A2A;" class="aktif">
                         <div>
                             <span class="fas fa-tachometer-alt"></span>
@@ -89,7 +89,7 @@
                     </div>
                 </li>
 
-                <a href="pemasukkan" class="linkAktif">
+                <a href="pemasukan" class="linkAktif">
                     <li id="panel" style="display: none;">
                         <div style="margin-left: 20px;">
                             <span><i class="fas fa-file-invoice-dollar"></i></span>
@@ -117,7 +117,7 @@
                     </div>
                 </li>
 
-                <a href="tambahPemasukkan" class="linkAktif">
+                <a href="tambahPemasukan" class="linkAktif">
                     <li id="panel3" style="display: none;">
                         <div style="margin-left: 20px;">
                             <span><i class="fas fa-file-invoice-dollar"></i></span>
@@ -184,8 +184,8 @@
     </div>
 
     <script src="assets/js/bootstrap.js"></script>
-    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 </body>
 
 </html>

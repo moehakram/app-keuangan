@@ -23,16 +23,15 @@ Router::post("/login", [AuthController::class, 'login'], OnlyGuest::class);
 Router::get("/logout", [AuthController::class, 'logout'], OnlyMember::class);
 
 // daily data
-Router::get('/pemasukan', [DailyData::class, '']);
-Router::get('/pengeluaran', [DailyData::class, '']);
+Router::get('/pemasukan', [DailyData::class, 'pemasukan']);
+Router::get('/pengeluaran', [DailyData::class, 'pengeluaran']);
 
 // input data
-Router::get('/tambahPemasukan', [InputData::class, '']);
-Router::get('/tambahPengeluaran', [InputData::class, '']);
+Router::get('/tambahPemasukan', [InputData::class, 'formIncome']);
+Router::get('/tambahPengeluaran', [InputData::class, 'formExpenditure']);
 
 // financial report
-Router::get('/laporan', [FinancialReport::class, '']);
-
+Router::get('/laporan', [FinancialReport::class, 'laporan']);
 
 // kelola user
 Router::get('/administrator', [UserController::class, '']);

@@ -22,7 +22,7 @@ class SessionService
         $session->id = strRandom(10);
         $session->username = $user->username;
         
-        $this->sessionRepository->save($session);
+        // $this->sessionRepository->save($session);
         $this->setSessionCookie($user, $session->id);
 
         return $session;
@@ -32,7 +32,7 @@ class SessionService
     {
         $session = $this->getSessionPayload();
         if($session){
-            $this->sessionRepository->deleteById($session->id);
+            // $this->sessionRepository->deleteById($session->id);
             // $this->sessionRepository->deleteAll();
             $this->clearSessionCookie();
         }
@@ -46,15 +46,15 @@ class SessionService
             return null;
         }
 
-        $session = $this->sessionRepository->findById($payload->id);
+        // $session = $this->sessionRepository->findById($payload->id);
 
-        if ($session === null) {
-            $this->destroy();
-            return null;
-        }
+        // if ($session === null) {
+        //     $this->destroy();
+        //     return null;
+        // }
 
         $user = new User();
-        $user->username = $session->username;
+        $user->username = $payload->username;
         $user->level = $payload->level;
 
         return $user;
